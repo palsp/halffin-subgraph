@@ -1,6 +1,6 @@
 specVersion: 0.0.2
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: EscrowFactory
@@ -18,13 +18,13 @@ dataSources:
         - Product
       abis:
         - name: EscrowFactory
-          file: ./abis/EscrowFactory.json
+          file: EscrowFactory/abis/EscrowFactory.json
         - name: Escrow
-          file: ./abis/Escrow.json
+          file: EscrowFactory/abis/Escrow.json
       eventHandlers:
         - event: ProductCreated(indexed address,address)
           handler: handleProductCreated
-      file: ./src/mappings/core.ts
+      file: EscrowFactory/EscrowFactory.wasm
 templates:
   - kind: ethereum/contract
     name: Escrow
@@ -35,15 +35,15 @@ templates:
       kind: ethereum/events
       apiVersion: 0.0.5
       language: wasm/assemblyscript
-      file: ./src/mappings/core.ts
+      file: EscrowFactory/EscrowFactory.wasm
       entities:
         - User
         - Product
       abis:
         - name: Escrow
-          file: ./abis/Escrow.json
+          file: Escrow/abis/Escrow.json
         - name: EscrowFactory
-          file: ./abis/EscrowFactory.json
+          file: Escrow/abis/EscrowFactory.json
       eventHandlers:
         - event: OrderInitiate(indexed address)
           handler: handleOrderInitiate
